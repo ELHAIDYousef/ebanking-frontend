@@ -37,21 +37,13 @@ export class AccountService {
     );
   }
 
-  debit(
-    accountId: string,
-    amount: number,
-    description: string
-  ): Observable<any> {
+  debit(accountId: string, amount: number, description: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/accounts/debit`, {
       accountId, amount, description
     });
   }
 
-  credit(
-    accountId: string,
-    amount: number,
-    description: string
-  ): Observable<any> {
+  credit(accountId: string, amount: number, description: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/accounts/credit`, {
       accountId, amount, description
     });
