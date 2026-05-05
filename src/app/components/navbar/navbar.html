@@ -1,45 +1,43 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm">
   <div class="container-fluid">
+    <a class="navbar-brand fw-bold" routerLink="/"> <i class="bi bi-bank2 me-2"></i>E-Banking </a>
 
-    <a class="navbar-brand fw-bold" routerLink="/">
-      <i class="bi bi-bank2 me-2"></i>E-Banking
-    </a>
-
-    <button class="navbar-toggler" type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarContent">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarContent"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarContent">
-
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link"
-             routerLink="/customers"
-             routerLinkActive="active">
+          <a class="nav-link" routerLink="/customers" routerLinkActive="active">
             <i class="bi bi-people me-1"></i>Customers
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link"
-             routerLink="/accounts"
-             routerLinkActive="active">
+          <a class="nav-link" routerLink="/accounts" routerLinkActive="active">
             <i class="bi bi-credit-card me-1"></i>Accounts
           </a>
         </li>
       </ul>
 
       <form class="d-flex" (ngSubmit)="handleSearch(searchInput.value)">
-        <input #searchInput
-               class="form-control me-2"
-               type="search"
-               placeholder="Search customers...">
+        <input
+          #searchInput
+          id="navbarSearch"
+          name="navbarSearch"
+          class="form-control me-2"
+          type="search"
+          placeholder="Search customers..."
+        />
         <button class="btn btn-outline-light" type="submit">
           <i class="bi bi-search"></i>
         </button>
       </form>
-
     </div>
   </div>
 </nav>

@@ -1,1 +1,83 @@
-<p>accounts works!</p>
+<div class="container-fluid">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">
+      <i class="bi bi-credit-card me-2 text-primary"></i>
+      @if (customerName) {
+        {{ customerName }}'s Accounts
+      } @else {
+        All Accounts
+      }
+    </h2>
+    @if (customerName) {
+      <button class="btn btn-outline-secondary" routerLink="/customers">
+        <i class="bi bi-arrow-left me-1"></i>Back to Customers
+      </button>
+    }
+  </div>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">
+      <i class="bi bi-exclamation-triangle me-2"></i>{{ errorMessage }}
+    </div>
+  }
+
+  @if (isLoading) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary"></div>
+      <p class="mt-2 text-muted">Loading accounts...</p>
+    </div>
+  }
+
+  @if (!isLoading) {
+    <div class="row">
+      @if (accounts.length === 0) {
+        <div class="col-12 text-center py-5 text-muted">
+          <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+          No accounts found
+        </div>
+      }
+      @for (account of accounts; track account.id) {
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100 shadow-sm border-0">
+            <div class="card-header d-flex justify-content-between align-items-center bg-dark text-white">
+              <span [class]="getAccountTypeClass(account)">
+                <i class="bi bi-credit-card me-1"></i>
+                {{ getAccountType(account) }}
+              </span>
+              <span [class]="getStatusClass(account.status)">
+                {{ account.status }}
+              </span>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title text-truncate text-muted small">
+                {{ account.id }}
+              </h5>
+              <h3 class="fw-bold text-success">
+                {{ account.balance | number:'1.2-2' }}
+                <small class="fs-6 text-muted">{{ account.currency }}</small>
+              </h3>
+              <hr>
+              <div class="d-flex align-items-center">
+                <i class="bi bi-person-circle me-2 text-muted"></i>
+                <span class="fw-semibold">{{ account.customerDTO.name }}</span>
+              </div>
+              <div class="text-muted small mt-1">
+                <i class="bi bi-calendar me-1"></i>
+                {{ account.createdAt | date:'mediumDate' }}
+              </div>
+            </div>
+            <div class="card-footer bg-transparent">
+              <button
+                class="btn btn-primary btn-sm w-100"
+                (click)="viewDetails(account)">
+                <i class="bi bi-eye me-1"></i>View Details & Operations
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+</div>
