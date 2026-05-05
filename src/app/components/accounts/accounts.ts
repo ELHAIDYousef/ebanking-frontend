@@ -1,37 +1,41 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../../services/account';
 import { BankAccount } from '../../models/account.model';
-import { DatePipe, DecimalPipe } from '@angular/common';
-
 
 @Component({
   selector: 'app-accounts',
   standalone: true,
-  imports: [RouterLink, FormsModule, DatePipe, DecimalPipe],
+  imports: [RouterLink, DatePipe, DecimalPipe, FormsModule],
   templateUrl: './accounts.html',
   styleUrl: './accounts.css'
 })
 export class Accounts implements OnInit {
 
   accounts: BankAccount[] = [];
+  filteredAccounts: BankAccount[] = [];
   errorMessage: string = '';
   isLoading: boolean = false;
   customerName: string = '';
+  customerId: number = 0;
+  searchKeyword: string = '';
+  filterType: string = 'ALL';
 
   constructor(
     private accountService: AccountService,
-    private router: Router,
-    private route: ActivatedRoute,
+    public router: Router,
+    public route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       if (params['customerId']) {
+        this.customerId = +params['customerId'];
         this.customerName = params['customerName'] || '';
-        this.loadCustomerAccounts(+params['customerId']);
+        this.loadCustomerAccounts(this.customerId);
       } else {
         this.loadAllAccounts();
       }
@@ -43,6 +47,7 @@ export class Accounts implements OnInit {
     this.accountService.getAccounts().subscribe({
       next: (data) => {
         this.accounts = data;
+        this.filteredAccounts = data;
         this.isLoading = false;
         this.cdr.detectChanges();
       },
@@ -59,6 +64,7 @@ export class Accounts implements OnInit {
     this.accountService.getCustomerAccounts(customerId).subscribe({
       next: (data) => {
         this.accounts = data;
+        this.filteredAccounts = data;
         this.isLoading = false;
         this.cdr.detectChanges();
       },
@@ -68,6 +74,34 @@ export class Accounts implements OnInit {
         this.cdr.detectChanges();
       }
     });
+  }
+
+  applyFilter(): void {
+    let result = this.accounts;
+
+    // Filter by type
+    if (this.filterType !== 'ALL') {
+      result = result.filter(a => a.type === this.filterType);
+    }
+
+    // Filter by keyword (account id or customer name)
+    if (this.searchKeyword.trim()) {
+      const kw = this.searchKeyword.toLowerCase();
+      result = result.filter(a =>
+        a.id.toLowerCase().includes(kw) ||
+        a.customerDTO.name.toLowerCase().includes(kw)
+      );
+    }
+
+    this.filteredAccounts = result;
+    this.cdr.detectChanges();
+  }
+
+  clearFilter(): void {
+    this.searchKeyword = '';
+    this.filterType = 'ALL';
+    this.filteredAccounts = this.accounts;
+    this.cdr.detectChanges();
   }
 
   viewDetails(account: BankAccount): void {

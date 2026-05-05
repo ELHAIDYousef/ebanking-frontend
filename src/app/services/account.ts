@@ -58,4 +58,25 @@ export class AccountService {
       accountSource, accountDestination, amount
     });
   }
+  createCurrentAccount(
+  customerId: number,
+  initialBalance: number,
+  overDraft: number
+): Observable<any> {
+  return this.http.post(
+    `${this.apiUrl}/accounts/current?initialBalance=${initialBalance}&overDraft=${overDraft}&customerId=${customerId}`,
+    {}
+  );
+}
+
+createSavingAccount(
+  customerId: number,
+  initialBalance: number,
+  interestRate: number
+): Observable<any> {
+  return this.http.post(
+    `${this.apiUrl}/accounts/saving?initialBalance=${initialBalance}&interestRate=${interestRate}&customerId=${customerId}`,
+    {}
+  );
+}
 }

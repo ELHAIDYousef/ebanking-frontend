@@ -1,0 +1,118 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <div class="card shadow-sm mt-4">
+        <div class="card-header bg-dark text-white">
+          <h5 class="mb-0">
+            <i class="bi bi-plus-circle me-2"></i>
+            New Account
+            @if (customer) {
+              for {{ customer.name }}
+            }
+          </h5>
+        </div>
+
+        <div class="card-body">
+
+          @if (errorMessage) {
+            <div class="alert alert-danger">
+              <i class="bi bi-exclamation-triangle me-2"></i>{{ errorMessage }}
+            </div>
+          }
+
+          <form #accountForm="ngForm" (ngSubmit)="createAccount(accountForm)">
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Account Type</label>
+              <select
+                class="form-select"
+                name="accountType"
+                [(ngModel)]="accountType">
+                <option value="CURRENT">Current Account</option>
+                <option value="SAVING">Saving Account</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold">
+                Initial Balance (MAD)
+              </label>
+              <input
+                type="number"
+                class="form-control"
+                name="initialBalance"
+                [(ngModel)]="initialBalance"
+                required
+                min="0"
+                #balanceField="ngModel">
+              @if (balanceField.invalid && balanceField.touched) {
+                <div class="text-danger small mt-1">
+                  Initial balance is required
+                </div>
+              }
+            </div>
+
+            @if (accountType === 'CURRENT') {
+              <div class="mb-3">
+                <label class="form-label fw-semibold">
+                  Overdraft Limit (MAD)
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="overDraft"
+                  [(ngModel)]="overDraft"
+                  required
+                  min="0">
+              </div>
+            }
+
+            @if (accountType === 'SAVING') {
+              <div class="mb-3">
+                <label class="form-label fw-semibold">
+                  Interest Rate (%)
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="interestRate"
+                  [(ngModel)]="interestRate"
+                  required
+                  min="0"
+                  max="100"
+                  step="0.1">
+              </div>
+            }
+
+            <div class="d-flex gap-2">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="isLoading">
+                @if (isLoading) {
+                  <span class="spinner-border spinner-border-sm me-1"></span>
+                  Creating...
+                } @else {
+                  <i class="bi bi-check-circle me-1"></i>Create Account
+                }
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                [routerLink]="['/accounts']"
+                [queryParams]="{
+                  customerId: customerId,
+                  customerName: customer ? customer.name : ''
+                }">
+                <i class="bi bi-arrow-left me-1"></i>Cancel
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

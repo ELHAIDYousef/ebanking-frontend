@@ -4,9 +4,11 @@
     <h2 class="fw-bold">
       <i class="bi bi-people me-2 text-primary"></i>Customers
     </h2>
-    <a routerLink="/customers/new" class="btn btn-primary">
+    <button
+      class="btn btn-primary"
+      routerLink="/customers/new">
       <i class="bi bi-plus-circle me-1"></i>New Customer
-    </a>
+    </button>
   </div>
 
   <div class="row mb-4">
@@ -18,11 +20,14 @@
           placeholder="Search by name or email..."
           [(ngModel)]="searchKeyword"
           (keyup.enter)="searchCustomers()">
-        <button class="btn btn-outline-primary" (click)="searchCustomers()">
+        <button
+          class="btn btn-outline-primary"
+          (click)="searchCustomers()">
           <i class="bi bi-search"></i>
         </button>
-        <button class="btn btn-outline-secondary"
-                (click)="searchKeyword=''; loadCustomers()">
+        <button
+          class="btn btn-outline-secondary"
+          (click)="searchKeyword=''; loadCustomers()">
           <i class="bi bi-x-lg"></i>
         </button>
       </div>
@@ -78,15 +83,21 @@
                     <i class="bi bi-credit-card"></i>
                   </button>
                   <button
+                    class="btn btn-sm btn-outline-info me-1"
+                    [routerLink]="['/customers', customer.id, 'accounts', 'new']"
+                    title="New Account">
+                    <i class="bi bi-plus-circle"></i>
+                  </button>
+                  <button
                     class="btn btn-sm btn-outline-primary me-1"
                     [routerLink]="['/customers/edit', customer.id]"
-                    title="Edit">
+                    title="Edit Customer">
                     <i class="bi bi-pencil"></i>
                   </button>
                   <button
                     class="btn btn-sm btn-outline-danger"
                     (click)="deleteCustomer(customer)"
-                    title="Delete">
+                    title="Delete Customer">
                     <i class="bi bi-trash"></i>
                   </button>
                 </td>

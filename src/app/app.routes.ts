@@ -20,6 +20,12 @@ export const routes: Routes = [
         .then(m => m.EditCustomer)
   },
   {
+    path: 'customers/:customerId/accounts/new',
+    loadComponent: () =>
+      import('./components/new-account/new-account')
+        .then(m => m.NewAccount)
+  },
+  {
     path: 'accounts',
     loadComponent: () =>
       import('./components/accounts/accounts')
