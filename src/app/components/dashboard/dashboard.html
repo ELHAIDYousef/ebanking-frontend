@@ -1,9 +1,6 @@
 <div class="container-fluid">
-
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold">
-      <i class="bi bi-bar-chart-line me-2 text-primary"></i>Dashboard
-    </h2>
+    <h2 class="fw-bold"><i class="bi bi-bar-chart-line me-2 text-primary"></i>Dashboard</h2>
     <button class="btn btn-outline-primary btn-sm" (click)="loadData()">
       <i class="bi bi-arrow-clockwise me-1"></i>Refresh
     </button>
@@ -17,10 +14,8 @@
   }
 
   @if (!isLoading) {
-
     <!-- Stats Cards -->
     <div class="row g-4 mb-4">
-
       <div class="col-md-3">
         <div class="card border-0 shadow-sm h-100">
           <div class="card-body d-flex align-items-center gap-3">
@@ -33,9 +28,7 @@
             </div>
           </div>
           <div class="card-footer bg-transparent border-0">
-            <a routerLink="/customers" class="text-primary small">
-              View all →
-            </a>
+            <a routerLink="/customers" class="text-primary small"> View all → </a>
           </div>
         </div>
       </div>
@@ -52,9 +45,7 @@
             </div>
           </div>
           <div class="card-footer bg-transparent border-0">
-            <a routerLink="/accounts" class="text-success small">
-              View all →
-            </a>
+            <a routerLink="/accounts" class="text-success small"> View all → </a>
           </div>
         </div>
       </div>
@@ -68,7 +59,7 @@
             <div>
               <div class="text-muted small">Total Balance</div>
               <div class="fw-bold fs-4">
-                {{ totalBalance | number:'1.0-0' }}
+                {{ totalBalance | number: '1.0-0' }}
                 <small class="fs-6 text-muted">MAD</small>
               </div>
             </div>
@@ -82,27 +73,25 @@
       <div class="col-md-3">
         <div class="card border-0 shadow-sm h-100">
           <div class="card-body d-flex align-items-center gap-3">
-            <div class="stat-icon bg-danger bg-opacity-10 text-danger">
+            <div class="stat-icon bg-success bg-opacity-10 text-success">
               <i class="bi bi-shield-check"></i>
             </div>
             <div>
-              <div class="text-muted small">Activated Accounts</div>
-              <div class="fw-bold fs-4">{{ activatedAccounts }}</div>
+              <div class="text-muted small">Active Accounts</div>
+              <div class="fw-bold fs-4">
+                {{ totalAccounts - suspendedAccounts }}
+              </div>
             </div>
           </div>
           <div class="card-footer bg-transparent border-0">
-            <span class="text-muted small">
-              {{ suspendedAccounts }} suspended
-            </span>
+            <span class="text-muted small"> {{ suspendedAccounts }} suspended </span>
           </div>
         </div>
       </div>
-
     </div>
 
     <!-- Charts -->
     <div class="row g-4">
-
       <div class="col-md-4">
         <div class="card border-0 shadow-sm">
           <div class="card-header bg-white fw-semibold border-0 pt-3">
@@ -138,9 +127,6 @@
           </div>
         </div>
       </div>
-
     </div>
-
   }
-
 </div>

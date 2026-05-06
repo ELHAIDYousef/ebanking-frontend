@@ -19,7 +19,7 @@ export class Customers implements OnInit {
   searchKeyword: string = '';
   isLoading: boolean = false;
 
- constructor(
+constructor(
   private customerService: CustomerService,
   public authService: AuthService,
   private router: Router,

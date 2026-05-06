@@ -1,14 +1,11 @@
 <div class="container-fluid">
-
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold">
-      <i class="bi bi-people me-2 text-primary"></i>Customers
-    </h2>
-    <button
-      class="btn btn-primary"
-      routerLink="/customers/new">
-      <i class="bi bi-plus-circle me-1"></i>New Customer
-    </button>
+    <h2 class="fw-bold"><i class="bi bi-people me-2 text-primary"></i>Customers</h2>
+    @if (authService.isAdmin()) {
+      <button class="btn btn-primary" routerLink="/customers/new">
+        <i class="bi bi-plus-circle me-1"></i>New Customer
+      </button>
+    }
   </div>
 
   <div class="row mb-4">
@@ -19,15 +16,12 @@
           class="form-control"
           placeholder="Search by name or email..."
           [(ngModel)]="searchKeyword"
-          (keyup.enter)="searchCustomers()">
-        <button
-          class="btn btn-outline-primary"
-          (click)="searchCustomers()">
+          (keyup.enter)="searchCustomers()"
+        />
+        <button class="btn btn-outline-primary" (click)="searchCustomers()">
           <i class="bi bi-search"></i>
         </button>
-        <button
-          class="btn btn-outline-secondary"
-          (click)="searchKeyword=''; loadCustomers()">
+        <button class="btn btn-outline-secondary" (click)="searchKeyword = ''; loadCustomers()">
           <i class="bi bi-x-lg"></i>
         </button>
       </div>
@@ -76,42 +70,43 @@
                 <td class="align-middle fw-semibold">{{ customer.name }}</td>
                 <td class="align-middle text-muted">{{ customer.email }}</td>
                 <td class="align-middle text-center">
-  <button
-    class="btn btn-sm btn-outline-success me-1"
-    (click)="viewAccounts(customer)"
-    title="View Accounts">
-    <i class="bi bi-credit-card"></i>
-  </button>
-  @if (authService.isAdmin()) {
-    <button
-      class="btn btn-sm btn-outline-info me-1"
-      [routerLink]="['/customers', customer.id, 'accounts', 'new']"
-      title="New Account">
-      <i class="bi bi-plus-circle"></i>
-    </button>
-    <button
-      class="btn btn-sm btn-outline-primary me-1"
-      [routerLink]="['/customers/edit', customer.id]"
-      title="Edit Customer">
-      <i class="bi bi-pencil"></i>
-    </button>
-    <button
-      class="btn btn-sm btn-outline-danger"
-      (click)="deleteCustomer(customer)"
-      title="Delete Customer">
-      <i class="bi bi-trash"></i>
-    </button>
-  }
-</td>
+                  <button
+                    class="btn btn-sm btn-outline-success me-1"
+                    (click)="viewAccounts(customer)"
+                    title="View Accounts"
+                  >
+                    <i class="bi bi-credit-card"></i>
+                  </button>
+                  @if (authService.isAdmin()) {
+                    <button
+                      class="btn btn-sm btn-outline-info me-1"
+                      [routerLink]="['/customers', customer.id, 'accounts', 'new']"
+                      title="New Account"
+                    >
+                      <i class="bi bi-plus-circle"></i>
+                    </button>
+                    <button
+                      class="btn btn-sm btn-outline-primary me-1"
+                      [routerLink]="['/customers/edit', customer.id]"
+                      title="Edit Customer"
+                    >
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button
+                      class="btn btn-sm btn-outline-danger"
+                      (click)="deleteCustomer(customer)"
+                      title="Delete Customer"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  }
+                </td>
               </tr>
             }
           </tbody>
         </table>
       </div>
-      <div class="card-footer text-muted">
-        Total: {{ customers.length }} customer(s)
-      </div>
+      <div class="card-footer text-muted">Total: {{ customers.length }} customer(s)</div>
     </div>
   }
-
 </div>
