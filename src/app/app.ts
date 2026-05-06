@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './components/navbar/navbar';
 import { Chat } from './components/chat/chat';
-
+import { AuthService } from './services/auth';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +13,6 @@ import { Chat } from './components/chat/chat';
 })
 export class AppComponent {
   title = 'ebanking-frontend';
+
+  constructor(public authService: AuthService) {}
 }

@@ -38,7 +38,7 @@ export class Login {
     this.authService.login(this.username, this.password).subscribe({
       next: () => {
         this.isLoading = false;
-        this.router.navigate(['/customers']);
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.errorMessage = err.status === 401

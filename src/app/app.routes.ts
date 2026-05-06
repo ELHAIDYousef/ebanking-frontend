@@ -10,6 +10,13 @@ export const routes: Routes = [
         .then(m => m.Login)
   },
   {
+    path: 'dashboard',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./components/dashboard/dashboard')
+        .then(m => m.Dashboard)
+  },
+  {
     path: 'customers',
     canActivate: [authGuard],
     loadComponent: () =>
@@ -53,7 +60,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'customers',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   }
 ];

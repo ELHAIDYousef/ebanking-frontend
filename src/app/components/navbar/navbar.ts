@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth';
 
-/**
- * @author ELHAID Yousef
- */
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -18,12 +15,6 @@ export class Navbar {
     public authService: AuthService,
     private router: Router
   ) {}
-
-  handleSearch(keyword: string): void {
-    this.router.navigate(['/customers'], {
-      queryParams: { keyword }
-    });
-  }
 
   logout(): void {
     this.authService.logout();

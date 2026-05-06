@@ -16,6 +16,13 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link"
+             routerLink="/dashboard"
+             routerLinkActive="active">
+            <i class="bi bi-bar-chart-line me-1"></i>Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
              routerLink="/customers"
              routerLinkActive="active">
             <i class="bi bi-people me-1"></i>Customers
@@ -29,18 +36,6 @@
           </a>
         </li>
       </ul>
-
-      <form class="d-flex me-3" (ngSubmit)="handleSearch(searchInput.value)">
-        <input #searchInput
-               id="navbarSearch"
-               name="navbarSearch"
-               class="form-control me-2"
-               type="search"
-               placeholder="Search customers...">
-        <button class="btn btn-outline-light" type="submit">
-          <i class="bi bi-search"></i>
-        </button>
-      </form>
 
       <div class="d-flex align-items-center gap-2">
         <span class="text-white-50 small">
