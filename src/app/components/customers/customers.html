@@ -76,31 +76,33 @@
                 <td class="align-middle fw-semibold">{{ customer.name }}</td>
                 <td class="align-middle text-muted">{{ customer.email }}</td>
                 <td class="align-middle text-center">
-                  <button
-                    class="btn btn-sm btn-outline-success me-1"
-                    (click)="viewAccounts(customer)"
-                    title="View Accounts">
-                    <i class="bi bi-credit-card"></i>
-                  </button>
-                  <button
-                    class="btn btn-sm btn-outline-info me-1"
-                    [routerLink]="['/customers', customer.id, 'accounts', 'new']"
-                    title="New Account">
-                    <i class="bi bi-plus-circle"></i>
-                  </button>
-                  <button
-                    class="btn btn-sm btn-outline-primary me-1"
-                    [routerLink]="['/customers/edit', customer.id]"
-                    title="Edit Customer">
-                    <i class="bi bi-pencil"></i>
-                  </button>
-                  <button
-                    class="btn btn-sm btn-outline-danger"
-                    (click)="deleteCustomer(customer)"
-                    title="Delete Customer">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </td>
+  <button
+    class="btn btn-sm btn-outline-success me-1"
+    (click)="viewAccounts(customer)"
+    title="View Accounts">
+    <i class="bi bi-credit-card"></i>
+  </button>
+  @if (authService.isAdmin()) {
+    <button
+      class="btn btn-sm btn-outline-info me-1"
+      [routerLink]="['/customers', customer.id, 'accounts', 'new']"
+      title="New Account">
+      <i class="bi bi-plus-circle"></i>
+    </button>
+    <button
+      class="btn btn-sm btn-outline-primary me-1"
+      [routerLink]="['/customers/edit', customer.id]"
+      title="Edit Customer">
+      <i class="bi bi-pencil"></i>
+    </button>
+    <button
+      class="btn btn-sm btn-outline-danger"
+      (click)="deleteCustomer(customer)"
+      title="Delete Customer">
+      <i class="bi bi-trash"></i>
+    </button>
+  }
+</td>
               </tr>
             }
           </tbody>

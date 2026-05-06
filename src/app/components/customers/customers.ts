@@ -3,6 +3,7 @@ import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CustomerService } from '../../services/customer';
 import { Customer } from '../../models/customer.model';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-customers',
@@ -18,12 +19,13 @@ export class Customers implements OnInit {
   searchKeyword: string = '';
   isLoading: boolean = false;
 
-  constructor(
-    private customerService: CustomerService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
-  ) {}
+ constructor(
+  private customerService: CustomerService,
+  public authService: AuthService,
+  private router: Router,
+  private route: ActivatedRoute,
+  private cdr: ChangeDetectorRef
+) {}
 
   ngOnInit(): void {
     this.loadCustomers();
