@@ -1,0 +1,91 @@
+<div class="chat-widget">
+
+  <!-- Chat bubble button -->
+  <button
+    class="chat-toggle-btn"
+    (click)="toggleChat()"
+    [class.active]="isOpen">
+    @if (isOpen) {
+      <i class="bi bi-x-lg"></i>
+    } @else {
+      <i class="bi bi-chat-dots-fill"></i>
+    }
+  </button>
+
+  <!-- Chat window -->
+  @if (isOpen) {
+    <div class="chat-window shadow">
+
+      <!-- Header -->
+      <div class="chat-header">
+        <div class="d-flex align-items-center gap-2">
+          <div class="bot-avatar">
+            <i class="bi bi-robot"></i>
+          </div>
+          <div>
+            <div class="fw-bold">E-Banking Assistant</div>
+            <div class="small opacity-75">
+              <span class="online-dot"></span> Online
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-sm text-white" (click)="toggleChat()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <!-- Messages -->
+      <div class="chat-messages">
+        @for (message of messages; track $index) {
+          <div class="message-wrapper"
+               [class.user-wrapper]="message.role === 'user'"
+               [class.bot-wrapper]="message.role === 'bot'">
+            @if (message.role === 'bot') {
+              <div class="bot-icon">
+                <i class="bi bi-robot"></i>
+              </div>
+            }
+            <div class="message"
+                 [class.user-message]="message.role === 'user'"
+                 [class.bot-message]="message.role === 'bot'">
+              {{ message.text }}
+              <div class="message-time">{{ message.time }}</div>
+            </div>
+          </div>
+        }
+
+        @if (isLoading) {
+          <div class="message-wrapper bot-wrapper">
+            <div class="bot-icon">
+              <i class="bi bi-robot"></i>
+            </div>
+            <div class="bot-message message typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Input -->
+      <div class="chat-input">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Ask me anything..."
+          [(ngModel)]="userMessage"
+          (keydown)="onKeyDown($event)"
+          [disabled]="isLoading">
+        <button
+          class="btn btn-primary send-btn"
+          (click)="sendMessage()"
+          [disabled]="isLoading || !userMessage.trim()">
+          <i class="bi bi-send-fill"></i>
+        </button>
+      </div>
+
+    </div>
+  }
+
+</div>
