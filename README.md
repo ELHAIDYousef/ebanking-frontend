@@ -214,16 +214,5 @@ export const environment = {
 };
 ```
 
----
-
-## Build for Production
-
-```bash
-ng build --configuration production
-```
-
-Output goes to `dist/ebanking-frontend/`
-
----
 
 
